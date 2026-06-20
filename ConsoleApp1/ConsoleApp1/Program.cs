@@ -1,42 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class Student
-{
-    public string Name;
-    public List<double> Grades = new List<double>();
-
-    public double GetAverage()
-    {
-        double sum = 0;
-
-        foreach (double grade in Grades)
-        {
-            sum += grade;
-        }
-
-        return sum / Grades.Count;
-    }
-
-    public double GetHighestGrade()
-    {
-        double highest = Grades[0];
-
-        foreach (double grade in Grades)
-        {
-            if (grade > highest)
-            {
-                highest = grade;
-            }
-        }
-
-        return highest;
-    }
-}
-
 class Program
 {
-    static List<Student> students = new List<Student>();
+    private static List<Student> students = new List<Student>();
 
     static void Main()
     {
@@ -50,7 +17,6 @@ class Program
             Console.WriteLine("3. Compute Average Grade");
             Console.WriteLine("4. Find Highest Grade");
             Console.WriteLine("5. Exit");
-            Console.WriteLine("==========================");
             Console.Write("Choose an option: ");
 
             int choice = int.Parse(Console.ReadLine());
@@ -74,9 +40,8 @@ class Program
                     break;
 
                 case 5:
-                    Console.WriteLine("Exiting program...");
-                    Console.WriteLine("Goodbye!");
                     running = false;
+                    Console.WriteLine("Goodbye!");
                     break;
 
                 default:
@@ -86,28 +51,28 @@ class Program
         }
     }
 
-    static void AddStudent()
+    public static void AddStudent()
     {
-        Student student = new Student();
-
         Console.Write("Enter student name: ");
-        student.Name = Console.ReadLine();
+        string name = Console.ReadLine();
+
+        Student student = new Student(name);
 
         Console.Write("Enter grade 1: ");
-        student.Grades.Add(double.Parse(Console.ReadLine()));
+        student.AddGrade(double.Parse(Console.ReadLine()));
 
         Console.Write("Enter grade 2: ");
-        student.Grades.Add(double.Parse(Console.ReadLine()));
+        student.AddGrade(double.Parse(Console.ReadLine()));
 
         Console.Write("Enter grade 3: ");
-        student.Grades.Add(double.Parse(Console.ReadLine()));
+        student.AddGrade(double.Parse(Console.ReadLine()));
 
         students.Add(student);
 
         Console.WriteLine("Student added successfully!");
     }
 
-    static void ViewStudents()
+    public static void ViewStudents()
     {
         if (students.Count == 0)
         {
@@ -115,24 +80,22 @@ class Program
             return;
         }
 
-        Console.WriteLine("\n===== STUDENT LIST =====");
-
         foreach (Student student in students)
         {
-            Console.WriteLine("Name: " + student.Name);
+            List<double> grades = student.GetGrades();
+
+            Console.WriteLine("\nName: " + student.GetName());
             Console.WriteLine("Grades: " +
-                student.Grades[0] + ", " +
-                student.Grades[1] + ", " +
-                student.Grades[2]);
+                grades[0] + ", " +
+                grades[1] + ", " +
+                grades[2]);
 
             Console.WriteLine("Average: " +
                 student.GetAverage().ToString("F2"));
-
-            Console.WriteLine();
         }
     }
 
-    static void ComputeClassAverage()
+    public static void ComputeClassAverage()
     {
         if (students.Count == 0)
         {
@@ -147,14 +110,11 @@ class Program
             total += student.GetAverage();
         }
 
-        double classAverage = total / students.Count;
-
-        Console.WriteLine("\n===== CLASS AVERAGE =====");
         Console.WriteLine("Overall Average Grade: " +
-            classAverage.ToString("F2"));
+            (total / students.Count).ToString("F2"));
     }
 
-    static void FindHighestGrade()
+    public static void FindHighestGrade()
     {
         if (students.Count == 0)
         {
@@ -167,16 +127,13 @@ class Program
 
         foreach (Student student in students)
         {
-            double currentHighest = student.GetHighestGrade();
-
-            if (currentHighest > highestGrade)
+            if (student.GetHighestGrade() > highestGrade)
             {
-                highestGrade = currentHighest;
-                topStudent = student.Name;
+                highestGrade = student.GetHighestGrade();
+                topStudent = student.GetName();
             }
         }
 
-        Console.WriteLine("\n===== HIGHEST GRADE =====");
         Console.WriteLine("Top Student: " + topStudent);
         Console.WriteLine("Highest Grade: " + highestGrade);
     }
