@@ -57,3 +57,4 @@ TestResult.xml
 nunit-*.xml
 /.idea/
 /ConsoleApp1/.vs/ConsoleApp1/FileContentIndex
+/ConsoleApp1/.vs/ConsoleApp1/DesignTimeBuild
