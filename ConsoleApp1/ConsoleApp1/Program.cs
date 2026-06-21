@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 class Program
 {
-    private static List<Student> students = new List<Student>();
+    private List<Student> students = new List<Student>();
 
     static void Main()
+    {
+        Program app = new Program();
+        app.Run();
+    }
+
+    public void Run()
     {
         bool running = true;
 
@@ -51,7 +58,7 @@ class Program
         }
     }
 
-    public static void AddStudent()
+    public void AddStudent()
     {
         Console.Write("Enter student name: ");
         string name = Console.ReadLine();
@@ -72,7 +79,7 @@ class Program
         Console.WriteLine("Student added successfully!");
     }
 
-    public static void ViewStudents()
+    public void ViewStudents()
     {
         if (students.Count == 0)
         {
@@ -95,7 +102,7 @@ class Program
         }
     }
 
-    public static void ComputeClassAverage()
+    public void ComputeClassAverage()
     {
         if (students.Count == 0)
         {
@@ -114,7 +121,7 @@ class Program
             (total / students.Count).ToString("F2"));
     }
 
-    public static void FindHighestGrade()
+    public void FindHighestGrade()
     {
         if (students.Count == 0)
         {
@@ -138,3 +145,6 @@ class Program
         Console.WriteLine("Highest Grade: " + highestGrade);
     }
 }
+
+
+

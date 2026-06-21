@@ -6,9 +6,9 @@ class Student
     private string name;
     private List<double> grades;
 
-    public Student(string studentName)
+    public Student(string name)
     {
-        name = studentName;
+        this.name = name;
         grades = new List<double>();
     }
 
